@@ -14,10 +14,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    $user = App\Models\User::first();
-
-    return $user->tasks->first()->subtasks->first()->task->user;
-
     return view('welcome');
 });
 

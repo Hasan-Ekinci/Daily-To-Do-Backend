@@ -17,6 +17,36 @@ class TaskController extends Controller
     {
         return Task::query()
             ->where('user_id', $userId)
-            ->first();
+            ->with('subtasks')
+            ->get();
+    }
+
+    /**
+     * Add a task for the user
+     */
+    public function addTask(\Illuminate\Http\Request $request)
+    {
+        // Add the new task to the database
+        $task = Task::query()
+            ->create([
+                'user_id' => $request->userId,
+                'title' => $request->title,
+                'description' => $request->description
+            ]);
+
+        // Add all the subtasks
+        foreach ($request->subTasks as $subtask) {
+            Subtask::query()
+                ->create([
+                    'task_id' => $task->id,
+                    'title' => $subtask['title'],
+                    'description' => $subtask['description']
+                ]);
+        }
+
+        // return a success message
+        return response()->json([
+            'status' => 'success'
+        ], 201);
     }
 }

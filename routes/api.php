@@ -18,8 +18,12 @@ use App\Http\Controllers\TaskController;
 
 Route::post('/login', [AuthenticationController::class, 'login']);
 
+// VERPLAATS DEZE ROUTES NAAR AUTH MIDDLEWARE
+Route::get('/tasks/{userId}', [TaskController::class, 'index']);
+Route::post('/add-task', [TaskController::class, 'addTask']);
+
 Route::group(['middleware' => ['auth:sanctum']], function () {
-    Route::get('/tasks/{userId}', [TaskController::class, 'index']);
+    // VERPLAATS ALLE AUTH GUARD ROUTES HIERNAARTOE
 });
 
 

@@ -41,4 +41,21 @@ class AuthenticationController extends Controller
             'error' => 'password incorrect'
         ], 401);
     }
+
+    /**
+     * Logout the user
+     */
+    public function logout(\Illuminate\Http\Request $request)
+    {
+        // get the user
+        $user = User::query()->where('id', $request->userId)->first();
+
+        // delete the previous tokens of the user
+        $user->tokens()->delete();
+
+        // return a success message
+        return response()->json([
+            'status' => 'success'
+        ], 201);
+    }
 }

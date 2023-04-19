@@ -61,4 +61,34 @@ class TaskController extends Controller
             ->with('subtasks')
             ->first();
     }
+
+    public function editField(\Illuminate\Http\Request $request)
+    {
+        // uit request kijgen, task of subtask id, isSubtask, isTitle, newValue
+
+        if (!$request->isSubtask) {
+            Task::query()
+                ->where('id', $request->id)
+                ->update([
+                    $request->isTitle ? 'title' : 'description' => $request->newValue
+                ]);
+
+            return response()->json([
+                'status' => 'success'
+            ], 201);
+
+        } else if (!$request->isSubtask) {
+            Subtask::query()
+                ->where('id', $request->id)
+                ->update([
+                    $request->isTitle ? 'title' : 'description' => $request->newValue
+                ]);
+
+            return response()->json([
+                'status' => 'success'
+            ], 201);
+        }
+
+        return response()->json([], 404);
+    }
 }

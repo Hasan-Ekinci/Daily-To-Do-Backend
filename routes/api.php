@@ -23,6 +23,9 @@ Route::get('/tasks/{userId}', [TaskController::class, 'index']);
 Route::post('/add-task', [TaskController::class, 'addTask']);
 Route::get('/task/{userId}/{taskId}', [TaskController::class, 'show']);
 
+// Route::post('/task/{userId}/{taskId}/add', [TaskController::class, 'addSubtask']);
+Route::post('/edit', [TaskController::class, 'editField']);
+
 Route::group(['middleware' => ['auth:sanctum']], function () {
     // VERPLAATS ALLE AUTH GUARD ROUTES HIERNAARTOE
     // Route::get('/tasks/{userId}', [TaskController::class, 'index']);

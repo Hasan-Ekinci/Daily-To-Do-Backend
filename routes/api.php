@@ -19,13 +19,14 @@ use App\Http\Controllers\TaskController;
 Route::post('/login', [AuthenticationController::class, 'login']);
 
 // VERPLAATS DEZE ROUTES NAAR AUTH MIDDLEWARE
-// Route::get('/tasks/{userId}', [TaskController::class, 'index']);
-// Route::post('/add-task', [TaskController::class, 'addTask']);
+Route::get('/tasks/{userId}', [TaskController::class, 'index']);
+Route::post('/add-task', [TaskController::class, 'addTask']);
+Route::get('/task/{userId}/{taskId}', [TaskController::class, 'show']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     // VERPLAATS ALLE AUTH GUARD ROUTES HIERNAARTOE
-    Route::get('/tasks/{userId}', [TaskController::class, 'index']);
-    Route::post('/add-task', [TaskController::class, 'addTask']);
+    // Route::get('/tasks/{userId}', [TaskController::class, 'index']);
+    // Route::post('/add-task', [TaskController::class, 'addTask']);
 
     Route::post('/logout', [AuthenticationController::class, 'logout']);
 });

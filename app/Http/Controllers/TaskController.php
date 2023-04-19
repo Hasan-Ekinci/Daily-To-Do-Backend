@@ -49,4 +49,16 @@ class TaskController extends Controller
             'status' => 'success'
         ], 201);
     }
+
+    /**
+     * Get the task for the show page
+     */
+    public function show(int $userId, int $taskId)
+    {
+        return Task::query()
+            ->where('id', $taskId)
+            ->where('user_id', $userId)
+            ->with('subtasks')
+            ->first();
+    }
 }

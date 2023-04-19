@@ -25,6 +25,7 @@ Route::get('/task/{userId}/{taskId}', [TaskController::class, 'show']);
 
 // Route::post('/task/{userId}/{taskId}/add', [TaskController::class, 'addSubtask']);
 Route::post('/edit', [TaskController::class, 'editField']);
+Route::post('/edit/action', [TaskController::class, 'taskAction']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     // VERPLAATS ALLE AUTH GUARD ROUTES HIERNAARTOE

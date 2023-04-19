@@ -113,6 +113,10 @@ class TaskController extends Controller
 
         // do the correct action
         if ($request->action === 'delete') {
+            Subtask::query()
+                ->where('task_id', $entity->id)
+                ->delete();
+
             $entity->delete();
 
         } else if ($request->action === 'done') {

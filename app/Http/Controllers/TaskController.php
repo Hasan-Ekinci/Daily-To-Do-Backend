@@ -77,7 +77,7 @@ class TaskController extends Controller
                 'status' => 'success'
             ], 201);
 
-        } else if (!$request->isSubtask) {
+        } else if ($request->isSubtask) {
             Subtask::query()
                 ->where('id', $request->id)
                 ->update([

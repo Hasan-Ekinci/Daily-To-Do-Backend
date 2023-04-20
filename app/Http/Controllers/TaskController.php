@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Task;
 use App\Models\Subtask;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\Eloquent\Builder;
 
 class TaskController extends Controller
 {
@@ -17,7 +18,13 @@ class TaskController extends Controller
     {
         $tasks = Task::query()
             ->where('user_id', $userId)
-            ->with('subtasks');
+            ->with('subtasks')
+            ->withCount([
+                'subtasks',
+                'subtasks as done_sub_tasks_count' => function (Builder $query) {
+                    $query->where('done', 1);
+                },
+            ]);
 
 
         if (!empty($type) && $type === 'active') {

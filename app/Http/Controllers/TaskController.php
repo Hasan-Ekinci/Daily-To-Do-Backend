@@ -18,8 +18,13 @@ class TaskController extends Controller
         $tasks = Task::query()
             ->where('user_id', $userId)
             ->with('subtasks');
-        
-        if (!empty($type)) {
+
+
+        if (!empty($type) && $type === 'active') {
+            $tasks->where('done', 0)
+                ->where('archived', 0);
+
+        } else if (!empty($type)) {
             $tasks->where($type, 1);
         }
 

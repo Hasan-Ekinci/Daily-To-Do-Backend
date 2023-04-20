@@ -13,12 +13,17 @@ class TaskController extends Controller
     /**
      * return the tasks that belong to the user
      */
-    public function index(int $userId)
+    public function index(int $userId, string $type = null)
     {
-        return Task::query()
+        $tasks = Task::query()
             ->where('user_id', $userId)
-            ->with('subtasks')
-            ->get();
+            ->with('subtasks');
+        
+        if (!empty($type)) {
+            $tasks->where($type, 1);
+        }
+
+        return $tasks->get();
     }
 
     /**

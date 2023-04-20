@@ -19,7 +19,7 @@ use App\Http\Controllers\TaskController;
 Route::post('/login', [AuthenticationController::class, 'login']);
 
 // VERPLAATS DEZE ROUTES NAAR AUTH MIDDLEWARE
-Route::get('/tasks/{userId}', [TaskController::class, 'index']);
+Route::get('/tasks/{userId}/{type?}', [TaskController::class, 'index']);
 Route::post('/add-task', [TaskController::class, 'addTask']);
 Route::get('/task/{userId}/{taskId}', [TaskController::class, 'show']);
 

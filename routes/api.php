@@ -17,6 +17,7 @@ use App\Http\Controllers\TaskController;
 */
 
 Route::post('/login', [AuthenticationController::class, 'login']);
+Route::post('/register', [AuthenticationController::class, 'register']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/tasks/{userId}/{type?}', [TaskController::class, 'index']);

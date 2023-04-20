@@ -42,6 +42,21 @@ class AuthenticationController extends Controller
         ], 401);
     }
 
+    public function register(\Illuminate\Http\Request $request)
+    {
+        $user = User::query()
+        ->create([
+            'name' => '',
+            'email' => $request->email,
+            'password' => Hash::make($request->password)
+        ]);
+
+        return response()->json([
+            'userId' => $user->id,
+            'token' => $user->createToken('auth-token')->plainTextToken,
+        ]);
+    }
+
     /**
      * Logout the user
      */

@@ -93,6 +93,9 @@ class TaskController extends Controller
         return response()->json([], 404);
     }
 
+    /**
+     * set done, archive or delet a (sub)task
+     */
     public function taskAction(\Illuminate\Http\Request $request)
     {
         // id
@@ -143,7 +146,22 @@ class TaskController extends Controller
         return response()->json([
             'status' => 'success'
         ], 201);
+    }
 
+    /**
+     * Add a subtask
+     */
+    public function addSubtask(\Illuminate\Http\Request $request)
+    {
+        // task id
+        Subtask::query()
+            ->create([
+                'task_id' => $request->taskId,
+                'title' => 'NIEUWE SUBTAAK'
+            ]);
 
+        return response()->json([
+            'status' => 'success'
+        ], 201);
     }
 }
